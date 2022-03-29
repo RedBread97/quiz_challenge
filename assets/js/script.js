@@ -11,7 +11,7 @@ const myQuestions = [
         },
         correctAnswer: "c"
     },
-    {
+    {   //not using yet
         question: "Which one of these is a JavaScript package manager?",
         answers: {
             a: "Node.js",
@@ -20,7 +20,7 @@ const myQuestions = [
         },
         correctAnswer: "c"
     },
-    {
+    {   //not using yet
         question: "Which tool can you use to ensure code quality?",
         answers: {
             a: "Angular",
@@ -46,45 +46,46 @@ var form = ' <h2>' + myQuestions[questionIndex].question +
 document.getElementById('start').addEventListener("click", function () {
 
     document.getElementById('start').style.display = 'none';
+    document.getElementById('introText').style.display = 'none';
     document.getElementById("form").insertAdjacentHTML("afterbegin", form);
     document.getElementById('btn').insertAdjacentHTML("afterbegin", submitBtn);
-    questionIndex++;
-    startTimer()
+
+    startTimer();
+    submit();
+})
+
+function submit() {
     document.getElementById('submit').addEventListener("click", function () {
+       
         var a = document.querySelector('input[name=flexRadioDefault]:checked').getAttribute('id');
         if (a == myQuestions[questionIndex].correctAnswer) {
-            console.log("Yay right answer!")
+            console.log("Yay right answer!");
+            questionIndex++;
+            form = ' <h2>' + myQuestions[questionIndex].question +
+            '</h2><form><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="a"><label class="form-check-label" for="flexRadioDefault1">' + myQuestions[questionIndex].answers.a +
+            '</label></div><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="b"checked><label class="form-check-label" for="flexRadioDefault2">' + myQuestions[questionIndex].answers.b +
+            '</label></div><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="c"checked><label class="form-check-label" for="flexRadioDefault2">' + myQuestions[questionIndex].answers.c +
+            '</label></div></form>';
+        
+            document.getElementById('form').innerHTML = '';
+            document.getElementById("form").insertAdjacentHTML("afterbegin", form);
         }
         console.log(a);
     })
-})
+}
 
-
+//finish setting up timer
 
 function startTimer() {
     // Sets timer
     timer = setInterval(function () {
         timerCount--;
-        timerElement.textContent = timerCount;
-        if (timerCount >= 0) {
-            // Tests if win condition is met
-            if (isWin && timerCount > 0) {
-                // Clears interval and stops timer
-                clearInterval(timer);
-                winGame();
-            }
-        }
-        // Tests if time has run out
-        if (timerCount === 0) {
-            // Clears interval
-            clearInterval(timer);
-            loseGame();
-        }
+       console.log(timerCount);
     }, 1000);
 }
 
 
-// example below
+
 
 
 
