@@ -117,7 +117,15 @@ function gameOver() {
 
 
 }
+if(scores!=null){
+    var results = ''
+for(var i = 0; i< scores.length; i ++){
+    results += ' <div class="row justify-content-center"><div class="col-8"><div class="card"><div class="card-body"><h3>initials-' +
+    scores[i].initials+' scores-'+ scores[i].score+'</h3></div></div></div></div>'
 
+}
+document.getElementById("results").insertAdjacentHTML("afterbegin", results);
+}
 //finish setting up timer
 var timer;
 function startTimer() {
