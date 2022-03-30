@@ -1,7 +1,7 @@
 var formEl = document.getElementById('form');
 var newScore = {
     "score": 0,
-    "initials":""
+    "initials": ""
 }
 var scores = JSON.parse(localStorage.getItem('scores'));
 var questionIndex = 0;
@@ -50,7 +50,7 @@ var form = ' <h2>' + myQuestions[questionIndex].question +
 document.getElementById('start').addEventListener("click", function () {
 
     document.getElementById('start').style.display = 'none';
-    
+
     document.getElementById('introText').style.display = 'none';
     formEl.insertAdjacentHTML("afterbegin", form);
     document.getElementById('btn').insertAdjacentHTML("afterbegin", submitBtn);
@@ -79,35 +79,44 @@ function submit() {
                 formEl.insertAdjacentHTML("afterbegin", form);
 
             } else {
-                clearInterval(timer);
-                document.getElementById('submit').style.display = 'none';
-                document.getElementById('timer').style.display = 'none';
-                var gameOver = '<h3>GAME OVER!!!</h3><div class="row justify-content-between"><div class="col-3"><label for="inputInitial" class="form-label">initials</label><input type="text" id="inputInitial" class="form-control"></div><div class="col-3"><p> Score-' + newScore.score +
-                    '</p></div></div>'
-                formEl.insertAdjacentHTML("afterbegin", gameOver);
-                var gameBtn = '<button type="button" class="btn btn-primary" id="gameBtn">Submit</button>';
-                document.getElementById('btn').insertAdjacentHTML("afterbegin", gameBtn);
-                document.getElementById('gameBtn').addEventListener("click", function () {
-                    var initials = document.querySelector('input[id=inputInitial]').value;
-                    newScore.initials = initials
-                    console.log(scores)
-                  if (scores == null){
-                    var allScores = [];
-                    allScores.push(newScore);
-                    localStorage.setItem("scores", JSON.stringify(allScores));
-                  }else{
-                      scores.unshift(newScore);
-                      localStorage.setItem("scores", JSON.stringify(scores));
-
-                  }
-                })
+                gameOver();
             }
+        } else {
+            timerCount -= 5;
+            document.getElementById('countdown').textContent = timerCount;
         }
+
         console.log(a);
     })
 }
 
+function gameOver() {
+    formEl.innerHTML = '';
+    clearInterval(timer);
+    document.getElementById('submit').style.display = 'none';
+    document.getElementById('timer').style.display = 'none';
+    var gameOver = '<h3>GAME OVER!!!</h3><div class="row justify-content-between"><div class="col-3"><label for="inputInitial" class="form-label">initials</label><input type="text" id="inputInitial" class="form-control"></div><div class="col-3"><p> Score-' + newScore.score +
+        '</p></div></div>'
+    formEl.insertAdjacentHTML("afterbegin", gameOver);
+    var gameBtn = '<button type="button" class="btn btn-primary" id="gameBtn">Submit</button>';
+    document.getElementById('btn').insertAdjacentHTML("afterbegin", gameBtn);
+    document.getElementById('gameBtn').addEventListener("click", function () {
+        var initials = document.querySelector('input[id=inputInitial]').value;
+        newScore.initials = initials
+        console.log(scores)
+        if (scores == null) {
+            var allScores = [];
+            allScores.push(newScore);
+            localStorage.setItem("scores", JSON.stringify(allScores));
+        } else {
+            scores.unshift(newScore);
+            localStorage.setItem("scores", JSON.stringify(scores));
 
+        }
+    })
+
+
+}
 
 //finish setting up timer
 var timer;
@@ -117,9 +126,12 @@ function startTimer() {
     timer = setInterval(function () {
         timerCount--;
         console.log(timerCount);
+        document.getElementById('countdown').textContent = timerCount;
         if (timerCount == 0) {
-            clearInterval(timer);
+            gameOver();
+
         }
+
     }, 1000);
 }
 
