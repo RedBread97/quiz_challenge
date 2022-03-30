@@ -15,7 +15,7 @@ const myQuestions = [
         },
         correctAnswer: "c"
     },
-    {   //not using yet
+    {   
         question: "Which one of these is a JavaScript package manager?",
         answers: {
             a: "Node.js",
@@ -24,7 +24,7 @@ const myQuestions = [
         },
         correctAnswer: "c"
     },
-    {   //not using yet
+    {   
         question: "Which tool can you use to ensure code quality?",
         answers: {
             a: "Angular",
@@ -126,10 +126,10 @@ for(var i = 0; i< scores.length; i ++){
 }
 document.getElementById("results").insertAdjacentHTML("afterbegin", results);
 }
-//finish setting up timer
+
 var timer;
 function startTimer() {
-    // Sets timer
+   
 
     timer = setInterval(function () {
         timerCount--;
@@ -148,9 +148,5 @@ function startTimer() {
 
 
 
-    // Variables
-    // const quizContainer = document.getElementById('quiz');
-    // const resultsContainer = document.getElementById('results');
-    // const submitButton = document.getElementById('submit');
-
+   
 
